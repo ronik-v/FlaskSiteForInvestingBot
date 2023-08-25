@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block title %}Новости бота{% endblock %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/news.css') }}">
+{% block body %}
+<div class="one"><h1>Последние новости</h1><br></div>
+
+{% for n in news %}
+    <div class="container">
+        <h2 class="base-title">{{ n.title }}</h2><br>
+        <p class="news-text">{{ n.text }}</p>
+        <em class="news-date">{{ n.pub_date }}</em><br>
+    </div>
+{% endfor %}
+{% endblock %}
