@@ -56,7 +56,7 @@ def add_with_verification(person: Person):
 
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/home', methods=['GET', 'POST'])
-def index():
+def index() -> str:
 	if request.method == 'POST':
 		first_name = request.form['first_name']
 		second_name = request.form['second_name']
@@ -66,13 +66,13 @@ def index():
 	return render_template('index.html')
 
 
-@app.route('/about')
-def about():
+@app.route('/about', methods=['GET'])
+def about() -> str:
 	return render_template('about.html')
 
 
 @app.route('/news', methods=['GET'])
-def news():
+def news() -> str:
 	news = News.query.all()
 	return render_template('news.html', news=news)
 
