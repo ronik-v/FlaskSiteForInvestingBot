@@ -5,8 +5,7 @@ This site was created as part of a project to create a bot for investments. To r
     To start call this in python console:
 </div>
 <div class="highlight highlight-source-shell notranslate position-relative overflow-auto" dir="auto">
-    <pre>from main import db</pre><br>
-    <pre>db.create_all()</pre>
+    <pre>from main import db db.create_all()</pre>
 </div>
 
 <div>
