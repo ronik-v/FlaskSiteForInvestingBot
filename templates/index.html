@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}Главная страница{% endblock %}
+
+{% block body %}
+<div class="row align-items-center g-lg-5 py-5">
+      <div class="col-lg-7 text-center text-lg-start">
+        <h1 class="display-4 fw-bold lh-1 mb-3"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Уважаемые посетители, данный сайт посвящен боту в telegram.</font></font></h1>
+        <p class="col-lg-10 fs-4"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Данный бот позволит тебе узнать динамику цен обыкновенных акций, а также составить инвестиционный портфель. Ознакомиться подробнее: <a href="https://t.me/ssistantInPortfolioInvestmentBot">Бот для инвестиций</a> </font><font style="vertical-align: inherit;"></font></font></p>
+      </div>
+      <div class="col-md-10 mx-auto col-lg-5">
+        <form class="p-4 p-md-5 border rounded-3 bg-light" method="post">
+          <div class="form-floating mb-3">
+            <input type="first_name" class="form-control" id="first_name" placeholder="Имя" name="first_name">
+            <label for="first_name"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Ваше имя в telegram</font></font></label>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="second_name" class="form-control" id="second_name" placeholder="Фамилия" name="second_name">
+            <label for="second_name"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Ваша фамилия в telegram</font></font></label>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="email" class="form-control" id="email" placeholder="имя@пример.com" name="email">
+            <label for="email"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Адрес электронной почты</font></font></label>
+          </div>
+          <div class="form-floating mb-3">
+            <button class="w-100 btn btn-lg btn-primary" type="submit"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Оставить свои данные для рассылки новостей</font></font></button>
+          <hr class="my-4">
+          </div>
+        </form>
+      </div>
+</div>
+{% endblock %}
