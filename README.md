@@ -2,10 +2,7 @@
 This site was created as part of a project to create a bot for investments. To reflect information about changes in the bot, adding features, sending your data for more information.
 
 <div>
-    To start call this in python console:
-</div>
-<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" dir="auto">
-    <pre>from main import db<br>db.create_all()</pre>
+    <p>To configure this, you can change the admin settings for adding news to /news in the config.py file.</p>
 </div>
 
 <div>
