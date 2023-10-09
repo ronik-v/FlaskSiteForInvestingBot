@@ -2,10 +2,11 @@ from flask import Flask, render_template, url_for, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 from waitress import serve
 from sqlalchemy.sql import func
+from werkzeug import Response
 
 from config import db_name, secret_key
 HOST: str = '0.0.0.0'
-PORT: int = 8000
+PORT: int = 8888
 
 
 app = Flask(__name__)
@@ -76,7 +77,31 @@ def news() -> str:
 	news = News.query.all()
 	return render_template('news.html', news=news)
 
+@app.route('/admin', methods=['GET', 'POST'])
+def admin_page() -> Response | str:
+	if request.method == 'POST':
+		from config import admin
+		admin_name_r, admin_password_r  = request.form['admin_name'], request.form['admin_password']
+		if admin['name'] == admin_name_r and admin['password'] == admin_password_r:
+			return redirect(url_for('add_news', key=admin['key']))
+	return render_template('admin_login.html')
+
+@app.route('/admin/add/<key>', methods=['GET', 'POST'])
+def add_news(key=None) -> None | str:
+	if key:
+		if request.method == 'POST':
+			from datetime import datetime
+			title, text = request.form['news_title'], request.form['news_text']
+			new_news = News(title=title, text=text, pub_date=datetime.now())
+			db.session.add(new_news)
+			db.session.commit()
+		return render_template('add_news.html')
+	else:
+		pass
+
 
 if __name__ == '__main__':
 	app.debug = False
+	with app.app_context():
+		db.create_all()
 	serve(app, host=HOST, port=PORT)
