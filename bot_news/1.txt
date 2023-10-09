@@ -1,2 +1,0 @@
-Bot release
-This bot will allow you to find out the dynamics of prices for ordinary shares, and also plans an investment portfolio.
