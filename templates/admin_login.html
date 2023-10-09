@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %}Верификация админа{% endblock %}
+
+{% block body %}
+    <div class="form-signin w-50 m-auto">
+        <form class="p-4 p-md-5 border rounded-3 bg-light" method="post">
+            <h1 class="h3 mb-3 fw-normal">Зайдите</h1>
+
+            <div class="form-floating">
+              <input name="admin_name" type="text" class="form-control" id="admin_name" placeholder="Имя админа">
+              <label for="admin_name">Имя</label>
+            </div>
+            <div class="form-floating">
+              <input name="admin_password" type="password" class="form-control" id="admin_password" placeholder="Пароль">
+              <label for="admin_password">Пароль</label>
+            </div>
+            <button class="btn btn-primary w-100 py-2" type="submit">Зайти</button>
+        </form>
+    </div>
+{% endblock %}
