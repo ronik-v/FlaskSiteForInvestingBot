@@ -21,6 +21,7 @@
             <input type="email" class="form-control" id="email" placeholder="имя@пример.com" name="email">
             <label for="email"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Адрес электронной почты</font></font></label>
           </div>
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
           <div class="form-floating mb-3">
             <button class="w-100 btn btn-lg btn-primary" type="submit"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Оставить свои данные для рассылки новостей</font></font></button>
           <hr class="my-4">
