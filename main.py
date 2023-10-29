@@ -1,8 +1,11 @@
-from flask import Flask, render_template, url_for, request, redirect
+from flask import Flask, render_template, url_for, request, redirect, json
+from flask_wtf.csrf import CSRFProtect
 from flask_sqlalchemy import SQLAlchemy
 from waitress import serve
 from sqlalchemy.sql import func
 from werkzeug import Response
+from config import admin
+from datetime import datetime
 
 from config import db_name, secret_key
 HOST: str = '0.0.0.0'
@@ -10,6 +13,7 @@ PORT: int = 8888
 
 
 app = Flask(__name__)
+csrf = CSRFProtect(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{db_name}'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = secret_key
@@ -46,6 +50,16 @@ class News(db.Model):
 		return f'<{News.__name__} {self.title}>'
 
 
+class Admin(db.Model):
+	id = db.Column(db.Integer, primary_key=True)
+	name = db.Column(db.String(20), unique=True, nullable=False)
+	password = db.Column(db.String(40), unique=True, nullable=False)
+
+	def __init__(self, name, password):
+		self.name = name
+		self.password = password
+
+
 def add_with_verification(person: Person):
 	try:
 		db.session.add(person)
@@ -80,17 +94,18 @@ def news() -> str:
 @app.route('/admin', methods=['GET', 'POST'])
 def admin_page() -> Response | str:
 	if request.method == 'POST':
-		from config import admin
 		admin_name_r, admin_password_r  = request.form['admin_name'], request.form['admin_password']
-		if admin['name'] == admin_name_r and admin['password'] == admin_password_r:
+		_admin = db.session.query(Admin).filter(Admin.name == admin_name_r, Admin.password == admin_password_r).all()
+		if _admin:
 			return redirect(url_for('add_news', key=admin['key']))
+		else:
+			return 'Неправильное имя или пароль...\nПопробуйте еще раз'
 	return render_template('admin_login.html')
 
 @app.route('/admin/add/<key>', methods=['GET', 'POST'])
 def add_news(key=None) -> None | str:
 	if key:
 		if request.method == 'POST':
-			from datetime import datetime
 			title, text = request.form['news_title'], request.form['news_text']
 			new_news = News(title=title, text=text, pub_date=datetime.now())
 			db.session.add(new_news)
@@ -101,7 +116,7 @@ def add_news(key=None) -> None | str:
 
 
 if __name__ == '__main__':
-	app.debug = False
+	app.debug = True
 	with app.app_context():
 		db.create_all()
-	serve(app, host=HOST, port=PORT)
+		serve(app, host=HOST, port=PORT)
