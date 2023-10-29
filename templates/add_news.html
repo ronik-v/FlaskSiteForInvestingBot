@@ -13,6 +13,7 @@
             <div class="form-floating">
                 <textarea name="news_text" class="form-control" placeholder="Текст новости"></textarea>
             </div><br>
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
             <button class="btn btn-primary w-100 py-2" type="submit">Добавить</button>
         </form>
     </div>
